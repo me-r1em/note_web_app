@@ -67,3 +67,6 @@ Lightweight Flask-based notes application with user authentication, note summari
 ## Contributing
 - Fork, create a branch, add tests for new features, open a PR.
 - Keep changes small and focused.
+
+
+also sorry if its messed up :)
