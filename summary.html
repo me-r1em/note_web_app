@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+
+  <div class="top-row">
+    <h2>✨ Note Summary View</h2>
+    <div class="theme-toggle">
+      <a class="btn small" href="{{ url_for('main.notes') }}">⬅ Back to Notes</a>
+    </div>
+  </div>
+
+  <!-- Original Note -->
+  <div class="note-card">
+    <div class="note-head">
+      <h4>📝 Original Note</h4>
+    </div>
+    <div class="note-body">
+      {{ note|safe }}
+    </div>
+  </div>
+
+  <!-- Summary Section -->
+  <div class="note-card" style="margin-top: 20px;">
+    <div class="note-head">
+      <h4>💡 Summary</h4>
+    </div>
+    <div class="note-body">
+      {% if summary %}
+        {{ summary|safe }}
+      {% else %}
+        <p><i>No summary generated yet.</i></p>
+      {% endif %}
+    </div>
+  </div>
+
+</div>
+{% endblock %}

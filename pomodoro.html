@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block extra_styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='pomodoro.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+
+<p id="quoteDisplay" class="quote"></p> 
+
+<div class="container">
+  <h1>🌸 Cozy Pomodoro</h1>
+
+  <div class="tab_box">
+    <button class="mode_btn active" data-mode="focus"><i class="fa-solid fa-mug-hot"></i></button>
+    <button class="mode_btn" data-mode="short"><i class="fa-solid fa-heart"></i></button>
+    <button class="mode_btn" data-mode="long"><i class="fa-solid fa-bed"></i></button>
+    <button id="settingsBtn" class="mode_btn"><i class="fa-solid fa-gear"></i></button>
+   </div>
+
+  <div id="timer">25:00</div>
+
+  <div class="controls">
+    <button id="startBtn"><i class="fa-solid fa-play"></i></button>
+    <button id="pauseBtn"><i class="fa-solid fa-pause"></i></button>
+    <button id="resetBtn"><i class="fa-solid fa-rotate-left"></i></button>
+  </div>
+
+  <div id="todoDesk">
+  <h3>📝 My Sticky Notes</h3>
+  <form id="todoForm">
+    <input id="todoInput" type="text" placeholder="Add a note..." />
+    <button type="submit"><i class="fa-solid fa-plus"></i></button>
+  </form>
+  <div id="stickyArea"></div>
+</div>
+
+
+ <!-- settings modal -->
+<div id="settingsModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h3>Timer Settings</h3>
+    <label>Focus (minutes):
+      <input type="number" id="focusInput" min="1" max="120" value="25">
+    </label>
+    <label>Short Break (minutes):
+      <input type="number" id="shortInput" min="1" max="30" value="5">
+    </label>
+    <label>Long Break (minutes):
+      <input type="number" id="longInput" min="1" max="60" value="15">
+    </label>
+    <button id="saveSettings">Save Settings</button>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='pomodoro.js') }}"></script>
+{% endblock %}

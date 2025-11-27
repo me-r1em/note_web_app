@@ -1,0 +1,482 @@
+/* Base - cozy pastel */
+:root {
+  --bg:radial-gradient(circle at center,#ed93ab, #ffe9d3 );
+  --card: rgba(255, 203, 203, 0.6);
+  --accent: #ffa1a1;
+  --accent-2: #933b44;
+  --text: #933b44;
+  --muted: #564141;
+  --glass-border: rgba(255, 255, 255, 0.4);
+  --shadow: rgba(0, 0, 0, 0.15);
+}
+
+/* Dark (cozy night) variables */
+body.cozy-night {
+  --bg: radial-gradient(circle at center, #4e1e37, #c790a5);
+  --card: rgba(55, 31, 46, 0.5);
+  --accent: #673850;
+  --accent-2: #9b2e65;
+  --text: #390b27;
+  --muted: #caacb0;
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --shadow: rgba(0, 0, 0, 0.5);
+  --quote-color: #af25258f;
+  --quote-color-2: #f0d8d8e7;
+}
+
+/* ---------- layout ---------- */
+* { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background 0.6s ease, color 0.6s ease, filter 0.6s ease;
+  overflow-x: hidden;
+  position: relative;
+  scroll-behavior: smooth;
+}
+
+/* dreamy gradient background bubbles */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at var(--x1, 20%) var(--y1, 30%), rgba(255, 220, 200, 0.4), transparent 60%),
+    radial-gradient(circle at var(--x2, 80%) var(--y2, 20%), rgba(200, 240, 255, 0.3), transparent 70%),
+    radial-gradient(circle at var(--x3, 60%) var(--y3, 80%), rgba(255, 200, 240, 0.35), transparent 60%);
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: blur(90px);
+  z-index: -1;
+}
+
+body.cozy-night::before {
+  background:
+    radial-gradient(circle at var(--x1, 25%) var(--y1, 35%), rgba(200, 150, 200, 0.25), transparent 60%),
+    radial-gradient(circle at var(--x2, 75%) var(--y2, 25%), rgba(100, 180, 200, 0.25), transparent 70%),
+    radial-gradient(circle at var(--x3, 55%) var(--y3, 85%), rgba(180, 100, 140, 0.3), transparent 60%);
+  filter: blur(100px);
+}
+
+
+/* ---------- content containers ---------- */
+.container {
+  width: 90%;
+  max-width: 900px;
+  margin: 28px auto;
+  padding: 20px;
+}
+
+.top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.theme-toggle { display: flex; gap: 8px; align-items: center; }
+
+/* ---------- form and note cards ---------- */
+
+/* ---------- Rich-text editor ---------- */
+.note-form .toolbar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.note-form .toolbar button {
+  background: var(--accent);
+  border: none;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.note-form .toolbar button:hover {
+  transform: scale(1.1);
+  opacity: 0.9;
+}
+
+.note-form .toolbar select {
+  border-radius: 8px;
+  border: 1px solid var(--accent);
+  padding: 4px 8px;
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--text);
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.editable-content {
+  width: 100%;
+  min-height: 150px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 2px solid rgba(0, 0, 0, 0.03);
+  margin-bottom: 8px;
+  background: rgba(253, 253, 253, 0.64);
+  backdrop-filter: blur(10px);
+  color: var(--text);
+  font-size: 14px;
+  outline: none;
+}
+
+/* 🌙 Night mode adjustments */
+body.cozy-night .note-form .toolbar button {
+  background: var(--accent-2);
+  color: #fff;
+}
+
+body.cozy-night .note-form .toolbar select {
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--text);
+  border: 1px solid var(--accent-2);
+}
+
+body.cozy-night .editable-content {
+  background: rgba(55, 31, 46, 0.5);
+  color: var(--text);
+  border: 1px solid var(--glass-border);
+}
+
+
+/* 🌷 Rich Text Editor */
+.toolbar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.toolbar button {
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--accent);
+  background: var(--card);
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.toolbar button:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+#fontSizeSelector {
+  border-radius: 6px;
+  border: 1px solid var(--accent);
+  padding: 3px 6px;
+  background: var(--card);
+  color: var(--text);
+}
+
+.editable-div {
+  width: 100%;
+  min-height: 150px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 2px solid rgba(0,0,0,0.03);
+  background: rgba(253,253,253,0.642);
+  color: var(--text);
+  font-size: 14px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  backdrop-filter: blur(10px);
+}
+
+.form-card,
+.note-card {
+  background: var(--card);
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 10px 25px var(--shadow), inset 0 0 25px rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border: 1px solid var(--glass-border);
+  transition: all 0.3s ease;
+}
+
+.note-card:hover,
+.form-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 35px var(--shadow);
+}
+
+/* form fields */
+.form-box input,
+.form-box textarea,
+.note-form input[type="text"],
+.note-form textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 2px solid rgba(255, 253, 253, 0.03);
+  margin: 8px 0;
+  font-size: 14px;
+  background: rgba(253, 253, 253, 0.642);
+  backdrop-filter: blur(10px);
+  color: var(--text);
+}
+
+/* buttons */
+.btn {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+.btn.small { padding: 6px 8px; font-size: 13px; }
+.btn.tiny { padding: 6px 8px; font-size: 12px; }
+.btn.danger { background: #bd415a; }
+.btn:hover { transform: scale(1.05); opacity: 0.9; }
+
+/* notes layout */
+.notes-list {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.note-card {
+  text-align: left;
+  transition: all 0.25s ease;
+  position: relative;
+}
+.note-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+.note-head h4 { margin: 0; color: var(--accent-2); }
+.note-body {
+  white-space: pre-wrap;
+  color: var(--muted);
+  margin-top: 8px;
+  font-size: 16px; /* Increased from default */
+  font-family: 'Georgia', serif; /* Changed font style */
+  line-height: 1.5; /* Added for better readability */
+}
+.meta-row {
+  display: flex;
+  gap: 12px;
+  font-size: 12px;
+  color: var(--muted);
+  align-items: center;
+}
+
+/* pinned look */
+.note-card.pinned { border-left: 5px solid var(--accent-2); }
+
+/* tags */
+.tag {
+  background: transparent;
+  color: var(--accent-2);
+  text-decoration: none;
+  padding: 3px 6px;
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+/* theme toggle button */
+/* 🌙✨ Theme toggle icon button */
+.theme-icon-btn {
+  background: none;
+  border: 2px solid var(--accent);
+  color: var(--accent);
+  font-size: 1.3rem;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.theme-icon-btn:hover {
+  background: var(--accent);
+  color: #fff;
+  transform: scale(1.1);
+}
+
+#themeIcon {
+  transition: transform 0.5s ease, opacity 0.4s ease;
+  display: inline-block;
+}
+
+.theme-icon-btn:active #themeIcon {
+  transform: rotate(360deg);
+  opacity: 0.8;
+}
+
+
+body.cozy-night .theme-icon-btn {
+  border-color: var(--accent-2);
+  color: var(--accent-2);
+}
+
+/* small helpers */
+.row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.small-label { font-size: 13px; color: var(--muted); }
+
+/* auto-save toast */
+#autosaveToast {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+  background: var(--card);
+  padding: 8px 12px;
+  border-radius: 10px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  display: none;
+  color: var(--text);
+  font-weight: 600;
+  backdrop-filter: blur(10px);
+}
+
+
+/* 🌷 top navigation bar */
+.top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(15px) saturate(150%);
+  -webkit-backdrop-filter: blur(15px) saturate(150%);
+  border-bottom: 1px solid var(--glass-border);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  z-index: 1000;
+  transition: background 0.4s ease;
+}
+
+body.cozy-night .top-bar {
+  background: rgba(60, 30, 50, 0.5);
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.25);
+}
+
+.top-bar-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  width: 90%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.logo {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  color: var(--accent-2);
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  position: relative; /* Added for continuous underline positioning */
+}
+
+/* Add continuous underline for all nav links */
+.nav-links::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 2px;
+  background: #933b44;
+  border-radius: 2px;
+  opacity: 0.3;
+  transition: opacity 0.4s ease;
+}
+
+body.cozy-night .nav-links::after {
+  background: #390b27;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 6px 10px;
+  transition: all 0.3s ease;
+  position: relative; /* For active indicator */
+}
+
+.nav-links a:hover {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+}
+
+/* Active link indicator */
+.nav-links a.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 3px; /* Thicker than the continuous line */
+  background: #933b44;
+  border-radius: 2px;
+  opacity: 1;
+  z-index: 1; /* Place above the continuous line */
+  transition: opacity 0.4s ease, height 0.3s ease;
+}
+
+body.cozy-night .nav-links a.active::after {
+  background: #390b27;
+}
+
+.nav-links a.active {
+  color: var(--text);
+}
+
+/* fix main container so content isn't hidden behind fixed bar */
+.container {
+  width: 90%;
+  max-width: 900px;
+  margin: 100px auto 28px auto; /* push down a bit */
+  padding: 20px;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: var(--text-color, #222);
+  padding: 10px 16px;
+  position: relative;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.navbar {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}

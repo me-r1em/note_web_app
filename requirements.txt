@@ -1,0 +1,6 @@
+flask
+sqlalchemy
+flask-sqlalchemy
+python-dotenv
+xhtml2pdf
+google-generativeai

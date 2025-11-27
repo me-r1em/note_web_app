@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  <h2>Edit Note ✏️</h2>
+  <form method="POST" class="note-form" id="editForm">
+    <label for="title">Title</label>
+    <input type="text" id="titleInput" name="title" value="{{ note.title }}" required>
+
+    <label for="content">Content</label>
+    <!-- Rich-text toolbar -->
+    <div class="toolbar">
+      <button type="button" data-command="bold"><b>B</b></button>
+      <button type="button" data-command="italic"><i>I</i></button>
+      <button type="button" data-command="underline"><u>U</u></button>
+      <select id="fontSizeSelect">
+        <option value="3">Normal</option>
+        <option value="4">Medium</option>
+        <option value="5">Large</option>
+        <option value="6">Huge</option>
+      </select>
+    </div>
+    <!-- Editable div for content -->
+    <div id="contentInput" name="content" contenteditable="true" class="editable-content">{{ note.content|safe }}</div>
+    <input type="hidden" id="contentHidden" name="content">
+
+    <label for="tags">Tags (comma separated)</label>
+    <input type="text" id="tagsInput" name="tags" value="{{ note.tags|map(attribute='name')|join(', ') }}">
+
+    <label>
+      <input type="checkbox" id="pinnedCheck" name="pinned" {% if note.pinned %}checked{% endif %}> Pinned
+    </label>
+
+    <div class="row" style="margin-top: 10px;">
+      <button type="submit" class="btn">Save changes</button>
+      <a class="btn" href="{{ url_for('main.notes') }}">Back</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

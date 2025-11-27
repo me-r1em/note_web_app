@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+
+  <div class="top-row">
+    <h2>Welcome, {{ username }} 💕</h2>
+    <div class="theme-toggle">
+      <a class="btn small" href="{{ url_for('main.export', format='txt') }}">Export TXT</a>
+      <a class="btn small" href="{{ url_for('main.export', format='pdf') }}">Export PDF</a>
+    </div>
+  </div>
+
+  <div class="form-card">
+    <form id="addForm" method="POST" class="note-form">
+      <div class="row">
+        <input id="titleInput" type="text" name="title" placeholder="Note title" value="{{ draft.title if draft else '' }}">
+        <label class="small-label"><input id="pinnedCheck" type="checkbox" name="pinned"> Pin</label>
+      </div>
+
+      <!-- Rich Text Toolbar -->
+      <div class="toolbar">
+        <button type="button" data-command="bold"><b>B</b></button>
+        <button type="button" data-command="italic"><i>I</i></button>
+        <button type="button" data-command="underline"><u>U</u></button>
+        <select id="fontSizeSelector">
+          <option value="3">Normal</option>
+          <option value="4">Large</option>
+          <option value="5">Larger</option>
+          <option value="6">Huge</option>
+        </select>
+      </div>
+
+      <!-- Editable Div for Note Content -->
+      <div id="contentInput" class="editable-div" contenteditable="true">{{ draft.content if draft else '' }}</div>
+
+      <input id="tagsInput" type="text" name="tags" placeholder="Tags (comma separated)">
+
+      <div class="row" style="margin-top:10px;">
+        <input type="submit" class="btn" value="💌 Add Note">
+        <button type="button" id="clearDraft" class="btn">🧹 Clear Draft</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="form-card" style="margin-top:20px;">
+    <form method="GET" action="{{ url_for('main.notes') }}" class="search-form" style="display:flex; gap:10px; align-items:center;">
+      <input type="text" name="q" placeholder="🔍 Search notes..." value="{{ q }}" 
+        style="flex:1; padding:10px 12px; border-radius:10px; border:none; background:rgba(255,255,255,0.5); backdrop-filter:blur(10px);">
+      <input type="submit" class="btn small" value="Search">
+    </form>
+  </div>
+
+  <h3 style="margin-top:30px;">Your Notes 📝</h3>
+  {% if notes %}
+    <div class="notes-list">
+      {% for n in notes %}
+      <div class="note-card {% if n.pinned %}pinned{% endif %}">
+        <div class="note-head">
+          <h4>{{ n.title }}</h4>
+          <div class="note-actions" style="display:flex;gap:6px;flex-wrap:wrap;">
+            <button class="btn tiny toggle-pin" data-id="{{ n.id }}">{{ 'Unpin' if n.pinned else 'Pin' }}</button>
+            <a class="btn tiny" href="{{ url_for('main.edit', note_id=n.id) }}">Edit</a>
+            <a class="btn tiny" href="{{ url_for('main.summarize', note_id=n.id) }}">✨ Summarize</a>
+            <a class="btn tiny danger" href="{{ url_for('main.delete', note_id=n.id) }}">Delete</a>
+          </div>
+        </div>
+        <div class="meta-row">
+          <small>{{ human_time(n.updated_at) }}</small>
+          {% if n.tags %}
+            <small>• Tags:
+              {% for t in n.tags %}
+                <a class="tag" href="{{ url_for('main.notes') }}?tag={{ t.name }}">{{ t.name }}</a>{% if not loop.last %},{% endif %}
+              {% endfor %}
+            </small>
+          {% endif %}
+        </div>
+        <p class="note-body">{{ n.content|safe }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p>No notes yet 🌸</p>
+  {% endif %}
+</div>
+{% endblock %}

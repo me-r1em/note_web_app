@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Cozy Notes ✨</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="top-bar">
+    <div class="top-bar-inner">
+      <h1 class="logo">Cozy Notes 🍓</h1>
+      <nav class="nav-links">
+        <a href="{{ url_for('main.notes') }}" class="{% if request.endpoint == 'main.notes' %}active{% endif %}">Notes</a>
+        <a href="{{ url_for('main.pomodoro') }}" class="{% if request.endpoint == 'main.pomodoro' %}active{% endif %}">Pomodoro</a>
+        <a href="{{ url_for('main.summaries') }}" class="{% if request.endpoint == 'main.summaries' %}active{% endif %}">Summaries</a>
+        <a class="btn small" href="{{ url_for('main.logout') }}">Logout</a>
+        <button id="themeBtn" class="theme-icon-btn">
+           <span id="themeIcon">☀️</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+  {% block extra_scripts %}{% endblock %}
+  {% block extra_styles %}{% endblock %}
+</body>
+</html>
+
+</body>
+</html>
